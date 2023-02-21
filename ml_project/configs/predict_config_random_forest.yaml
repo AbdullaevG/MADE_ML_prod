@@ -1,0 +1,9 @@
+input_data_path: "data/raw/heart_for_predict.csv"
+model_path: "models/random_forest.pkl"
+predict_path: "data/predicted/predict_random_forest.csv"
+transformer_path: "models/transformer_random_forest.pkl"
+target_col: "HeartDisease"
+clean_features:
+  outliers: "RestingBP"
+  nulls: "Cholesterol"
+  target: "HeartDisease"

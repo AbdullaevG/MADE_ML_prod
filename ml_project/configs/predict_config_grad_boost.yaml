@@ -1,0 +1,9 @@
+input_data_path: "data/raw/heart_for_predict.csv"
+model_path: "models/grad_boost.pkl"
+predict_path: "data/predicted/predict_grad_boost.csv"
+transformer_path: "models/transformer_grad_boost.pkl"
+target_col: "HeartDisease"
+clean_features:
+  outliers: "RestingBP"
+  nulls: "Cholesterol"
+  target: "HeartDisease"
