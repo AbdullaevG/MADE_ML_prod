@@ -12,10 +12,9 @@ handler = logging.StreamHandler(sys.stdout)
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
-
 def predict(model: SklearnClassificationModel, df: pd.DataFrame) -> np.ndarray:
     """Get prediction for model"""
     logger.info('Start predict for model...')
-    predict = model.predict(df)
+    predict = model.predict_proba(df)
     logger.info('Finished predict')
-    return predict
+    return predict[:, 1]

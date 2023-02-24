@@ -6,6 +6,7 @@ import sys
 import gdown
 import zipfile
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 import os
 
@@ -42,26 +43,38 @@ def read_raw_data(path: str) -> pd.DataFrame:
     logger.info('Data shape %s', df.shape)
     return df
 
+def from_str_to_float(x):
+    """Change from object type to float"""
+    if x != " ":
+        return np.float(x)
+    else:
+        return x
+
 
 def prepare_data(df: pd.DataFrame, params) -> Tuple[pd.DataFrame, Optional[pd.Series]]:
     """Prepare data"""
     logger.info('Preparing dataset...')
 
+    logger.info('Change type and remove nan ')
+    null_field= params.nulls
+    df[null_field] = df[null_field].map(from_str_to_float)
+    null_field_mean = df[df[null_field] != ' '][null_field].mean()
+    df[null_field] = df[null_field].replace(" ", null_field_mean)
+
     logger.info('Remove outliers...')
     outliers_field = params.outliers
-    row = df[df[outliers_field] == 0].index
-    df = df.drop(df.index[row])
 
-    logger.info('Replace Nulls...')
-    nulls_field = params.nulls
-    median_values = df[nulls_field].median()
-    row = df[df[nulls_field] == 0].index
-    df.loc[row, nulls_field] = median_values
+    field_max_value = np.quantile(df[outliers_field], 0.99)
+    row = df[df[outliers_field] > field_max_value].index
+    df = df.drop(index=df.index[row])
 
     target_name = params.target
     if target_name in df.columns:
         logger.info('Extract and drop target column...')
+        target_map = {"No": 0, "Yes": 1}
+        df[target_name] = df[target_name].map(target_map)
         target = df[target_name]
+
         df = df.drop([target_name], axis=1)
         return df, target
     else:

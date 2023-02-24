@@ -6,6 +6,6 @@ from typing import List, Optional
 @dataclass
 class OutliersNulls:
     """ Structure contain parameters for preparing data """
-    outliers: str = field(default= 'RestingBP')
-    nulls: str = field(default= 'Cholesterol')
-    target: str = field(default='HeartDisease')
+    nulls: str = field(default='TotalCharges')
+    outliers: str = field(default= 'TotalCharges')
+    target: str = field(default='Churn')

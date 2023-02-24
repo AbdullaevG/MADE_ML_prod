@@ -19,7 +19,8 @@ def train_model(df: pd.DataFrame, target: pd.Series, train_params) -> SklearnCla
     logger.info('Start loading %s model...', train_params.model_type)
 
     if train_params.model_type == 'RandomForestClassifier':
-        model = RandomForestClassifier()
+        model = RandomForestClassifier(n_estimators=train_params.n_estimators,
+                                       min_samples_leaf = train_params.min_samples_leaf)
 
     elif train_params.model_type == 'GradientBoostingClassifier':
         model = GradientBoostingClassifier()
@@ -32,4 +33,5 @@ def train_model(df: pd.DataFrame, target: pd.Series, train_params) -> SklearnCla
     logger.info('Start model fitting...')
     model.fit(df, target)
     logger.info('Finished model fitting')
+
     return model

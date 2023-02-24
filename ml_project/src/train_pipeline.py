@@ -23,11 +23,10 @@ logger.addHandler(handler)
 def train_pipeline(config_path: str):
     """ train pipeline"""
     training_pipeline_params = read_training_pipeline_params(config_path)
-    # print(training_pipeline_params)
 
     logger.info('Start train pipeline with %s...', training_pipeline_params.model_type.model_type)
     download_data(training_pipeline_params.downloading_params)
-    logger.info("Data files are unziped!")
+    logger.info("Data files are unziped!!!")
 
     df: pd.DataFrame = read_raw_data(training_pipeline_params.input_data_path)
     df, target = prepare_data(df, training_pipeline_params.clean_features)

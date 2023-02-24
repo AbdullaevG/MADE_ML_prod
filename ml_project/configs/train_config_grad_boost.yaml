@@ -1,10 +1,10 @@
-input_data_path: "data/raw/heart.csv"
+input_data_path: "data/raw/telecom_data_train.csv"
 metric_path: "models/metrics_train_grad_boost.json"
 save_model_path: "models/grad_boost.pkl"
 save_transformer_path: "models/transformer_grad_boost.pkl"
 
 downloading_params:
-  file_link: "https://drive.google.com/file/d/1FU8p1PG7O_nGKvpjFXuXfoWDPCBvm8xS/view?usp=sharing"
+  file_link: "https://drive.google.com/file/d/1dpqOgGEmBQePmDcpUYighbDngfq6RoEl/view?usp=sharing"
   output_folder: "data/raw/"
   name: "data.zip"
 
@@ -14,28 +14,38 @@ model_type:
   min_samples_leaf: 5
 
 clean_features:
-  outliers: "RestingBP"
-  nulls: "Cholesterol"
-  target: "HeartDisease"
+  nulls: "TotalCharges"
+  outliers: "TotalCharges"
+  target: "Churn"
 
 custom_transformer:
   use_custom_transformer: false
 
 feature_params:
   cat_features:
-    - "Sex"
-    - "ChestPainType"
-    - "FastingBS"
-    - "RestingECG"
-    - "ExerciseAngina"
-    - "ST_Slope"
+    - 'gender'
+    - 'SeniorCitizen'
+    - 'Partner'
+    - 'Dependents'
+    - 'PhoneService'
+    - 'MultipleLines'
+    - 'InternetService'
+    - 'OnlineSecurity'
+    - 'OnlineBackup'
+    - 'DeviceProtection'
+    - 'TechSupport'
+    - 'StreamingTV'
+    - 'StreamingMovies'
+    - 'Contract'
+    - 'PaperlessBilling'
+    - 'PaymentMethod'
+
   num_features:
-    - "Age"
-    - "RestingBP"
-    - "Cholesterol"
-    - "MaxHR"
-    - "Oldpeak"
-  target: "HeartDisease"
+    - 'tenure'
+    - 'MonthlyCharges'
+    - "TotalCharges"
+
+  target: "Churn"
 
 splitting_params:
   test_size: 0.3

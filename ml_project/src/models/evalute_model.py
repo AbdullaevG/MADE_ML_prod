@@ -16,12 +16,6 @@ logger.addHandler(handler)
 def evaluate_model(predict: np.ndarray, target: pd.Series) -> Dict[str, float]:
     """ Evaluate model """
     logger.info('Start calculating metrics...')
-    acc = accuracy_score(target, predict)
-    f1 = f1_score(target, predict, average='macro')
     roc = roc_auc_score(target, predict)
     logger.info('Finished calculating metrics.')
-    return {
-        'accuracy': acc,
-        'f1_score': f1,
-        'roc_auc_score': roc,
-    }
+    return {'roc_auc_score': roc}
