@@ -25,6 +25,16 @@ heart.csv
     python -m pytest tests
 
 
+DOCKER:
+~~~
+docker build -t docker-ml-model -f Dockerfile .
+docker run  docker-ml-model
+docker run -it docker-ml-model sh
+cat models/metrics_train_random_forest.json
+~~~
+
+
+
 Структура проекта:
 ------------
 
